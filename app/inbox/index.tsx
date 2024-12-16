@@ -1,7 +1,7 @@
 import { PostCard } from '@/components/PostCard';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 
-export default function Home() {
+export default function Inbox() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Murphy</Text>
+      <Text style={styles.title}>Inbox</Text>
       <ScrollView>
         <PostCard />
       </ScrollView>
