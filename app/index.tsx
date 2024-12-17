@@ -1,5 +1,7 @@
-import { PostCard } from '@/components/PostCard';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import { useEffect } from 'react';
+import { PostCard } from '@/components/PostCard';
+import { useFetchFrontPage } from '@/api/fetchFrontPage';
 
 export default function Home() {
   const styles = StyleSheet.create({
@@ -13,6 +15,14 @@ export default function Home() {
       fontWeight: 'bold',
     },
   });
+
+  const { data, isLoading, isError } = useFetchFrontPage();
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+    }
+  }, [data]);
 
   return (
     <View style={styles.container}>
