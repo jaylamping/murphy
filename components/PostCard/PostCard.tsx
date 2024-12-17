@@ -27,6 +27,7 @@ const PostCard = ({ post }: { post: Post }) => {
                 priority: FastImage.priority.normal,
                 cache: FastImage.cacheControl.immutable,
               }}
+              resizeMode={FastImage.resizeMode.center}
             />
           )}
         </View>
