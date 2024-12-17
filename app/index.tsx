@@ -28,7 +28,7 @@ export default function Home() {
       fontWeight: 'bold',
     },
     loading: {
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: 'bold',
     },
   });
@@ -87,7 +87,7 @@ export default function Home() {
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
     const isCloseToBottom =
-      layoutMeasurement.height + contentOffset.y >= contentSize.height - 500;
+      layoutMeasurement.height + contentOffset.y >= contentSize.height - 1000;
     if (isCloseToBottom && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }

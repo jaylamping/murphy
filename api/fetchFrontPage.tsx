@@ -1,10 +1,5 @@
 import { FrontPageResponse } from '@/types/Listing';
-import {
-  useQuery,
-  QueryFunction,
-  useInfiniteQuery,
-  QueryFunctionContext,
-} from '@tanstack/react-query';
+import { useInfiniteQuery, QueryFunctionContext } from '@tanstack/react-query';
 import axios from 'axios';
 
 /**
@@ -22,8 +17,7 @@ export const useFetchFrontPage = () => {
 
 const fetchFrontPage = async ({ pageParam = '' }: QueryFunctionContext) => {
   const { data } = await axios.get<FrontPageResponse>(
-    `https://oauth.reddit.com/.json?after=${pageParam}`
+    `https://oauth.reddit.com/.json?after=${pageParam}&limit=50`
   );
-  console.log(data);
   return data;
 };
