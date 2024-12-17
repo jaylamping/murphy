@@ -1,4 +1,3 @@
-import { PostCard } from '@/components/PostCard';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 
 export default function Inbox() {
