@@ -1,9 +1,10 @@
 import { View, Text } from 'react-native';
+import { Post } from '@/types/Post';
 
-const PostCard = () => {
+const PostCard = ({ post }: { post: Post }) => {
   return (
     <View>
-      <Text>Post Title</Text>
+      <Text>{post.title}</Text>
     </View>
   );
 };

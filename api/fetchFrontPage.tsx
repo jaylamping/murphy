@@ -1,3 +1,4 @@
+import { FrontPageResponse } from '@/types/Listing';
 import { useQuery, QueryFunction } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -6,14 +7,16 @@ import axios from 'axios';
  * @returns
  */
 export const useFetchFrontPage = () => {
-  return useQuery({
+  return useQuery<FrontPageResponse>({
     queryKey: ['frontPage'],
     queryFn: fetchFrontPage,
   });
 };
 
-const fetchFrontPage: QueryFunction<any> = async () => {
-  const { data } = await axios.get('https://oauth.reddit.com/.json');
+const fetchFrontPage: QueryFunction<FrontPageResponse> = async () => {
+  const { data } = await axios.get<FrontPageResponse>(
+    'https://oauth.reddit.com/.json'
+  );
   console.log(data);
   return data;
 };

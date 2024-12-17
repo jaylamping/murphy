@@ -16,8 +16,10 @@ export default function Home() {
     },
   });
 
+  /* API Hooks */
   const { data, isLoading, isError } = useFetchFrontPage();
 
+  /* Effects */
   useEffect(() => {
     if (data) {
       console.log(data);
@@ -28,7 +30,9 @@ export default function Home() {
     <View style={styles.container}>
       <Text style={styles.title}>Murphy</Text>
       <ScrollView>
-        <PostCard />
+        {data?.data.children.map((post) => (
+          <PostCard post={post.data} key={post.data.id} />
+        ))}
       </ScrollView>
     </View>
   );

@@ -16,9 +16,8 @@ export default function Inbox() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Inbox</Text>
       <ScrollView>
-        <PostCard />
+        <Text>hi</Text>
       </ScrollView>
     </View>
   );
