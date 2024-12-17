@@ -17,7 +17,6 @@ export const styles = StyleSheet.create({
   content: {
     flexGrow: 1,
     flexShrink: 1,
-    flexWrap: 'wrap',
   },
   subreddit: {
     fontSize: 12,
@@ -33,5 +32,11 @@ export const styles = StyleSheet.create({
   selftext: {
     fontSize: 12,
     flexWrap: 'wrap',
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#e0e0e0',
+    width: '97%',
+    alignSelf: 'center',
   },
 });
