@@ -19,7 +19,8 @@ export const styles = StyleSheet.create({
     flexShrink: 1,
   },
   subreddit: {
-    fontSize: 12,
+    fontSize: 13,
+    paddingBottom: 4,
     color: 'gray',
   },
   title: {
