@@ -1,20 +1,26 @@
 import { View, Text } from 'react-native';
 import { Post } from '@/types/Post';
 import FastImage from 'react-native-fast-image';
+import { styles } from './styles';
 const PostCard = ({ post }: { post: Post }) => {
   return (
-    <View>
-      <Text>{post.subreddit_name_prefixed}</Text>
-      <FastImage
-        style={{ width: 100, height: 100 }}
-        source={{
-          uri: post.thumbnail,
-          priority: FastImage.priority.normal,
-          cache: FastImage.cacheControl.immutable,
-        }}
-      />
-      <Text>{post.title}</Text>
-      <Text>{post.author}</Text>
+    <View style={styles.container}>
+      <View style={styles.content}>
+        <Text style={styles.subreddit}>{post.subreddit_name_prefixed}</Text>
+        <Text style={styles.title} numberOfLines={2} ellipsizeMode='tail'>
+          {post.title}
+        </Text>
+      </View>
+      {post.thumbnail && (
+        <FastImage
+          style={styles.thumbnail}
+          source={{
+            uri: post.thumbnail,
+            priority: FastImage.priority.normal,
+            cache: FastImage.cacheControl.immutable,
+          }}
+        />
+      )}
     </View>
   );
 };
