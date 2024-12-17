@@ -5,11 +5,14 @@ import {
   Text,
   AppState,
   RefreshControl,
+  Platform,
+  AppStateStatus,
 } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { PostCard } from '@/components/PostCard';
 import { useFetchFrontPage } from '@/api/fetchFrontPage';
 import FastImage from 'react-native-fast-image';
+import { focusManager } from '@tanstack/react-query';
 
 export default function Home() {
   const styles = StyleSheet.create({
@@ -37,25 +40,16 @@ export default function Home() {
   /* API Hooks */
   const { data, isLoading, refetch } = useFetchFrontPage();
 
-  /* Refetch on App State Change */
+  /* Effects */
+
+  // Refetch on App State Change
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', (nextAppState) => {
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === 'active'
-      ) {
-        // App has come to the foreground
-        refetch();
-      }
-      appState.current = nextAppState;
-    });
+    const subscription = AppState.addEventListener('change', onAppStateChange);
 
-    return () => {
-      subscription.remove();
-    };
-  }, [refetch]);
+    return () => subscription.remove();
+  }, []);
 
-  /* Preload Thumbnails */
+  // Preload Thumbnails
   useEffect(() => {
     if (data) {
       const urls = data.data.children
@@ -72,6 +66,12 @@ export default function Home() {
     await refetch();
     setRefreshing(false);
   };
+
+  function onAppStateChange(status: AppStateStatus) {
+    if (Platform.OS !== 'web') {
+      focusManager.setFocused(status === 'active');
+    }
+  }
 
   /* Render */
   return (
