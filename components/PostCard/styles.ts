@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: 14,
+    gap: 12,
   },
   text: {
     flexDirection: 'column',
@@ -26,12 +26,6 @@ export const styles = StyleSheet.create({
   textContent: {
     flex: 1,
   },
-  actions: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-
   thumbnail: {
     width: 80,
     height: 80,

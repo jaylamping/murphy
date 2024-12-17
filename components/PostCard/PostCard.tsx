@@ -2,6 +2,7 @@ import { View, Text } from 'react-native';
 import { Post } from '@/types/Post';
 import FastImage from 'react-native-fast-image';
 import { styles } from './styles';
+import { PostCardActions } from './PostCardActions';
 
 const PostCard = ({ post }: { post: Post }) => {
   return (
@@ -29,9 +30,7 @@ const PostCard = ({ post }: { post: Post }) => {
             />
           )}
         </View>
-        <View style={styles.actions}>
-          <Text>{post.num_comments} comments</Text>
-        </View>
+        <PostCardActions post={post} />
       </View>
       <View style={styles.separator} />
     </View>
