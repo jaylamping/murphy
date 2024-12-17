@@ -1,21 +1,28 @@
 import { FrontPageResponse } from '@/types/Listing';
-import { useQuery, QueryFunction } from '@tanstack/react-query';
+import {
+  useQuery,
+  QueryFunction,
+  useInfiniteQuery,
+  QueryFunctionContext,
+} from '@tanstack/react-query';
 import axios from 'axios';
 
 /**
- * Fetches the reddit front page
+ * Fetches the reddit front page with pagination
  * @returns
  */
 export const useFetchFrontPage = () => {
-  return useQuery<FrontPageResponse>({
+  return useInfiniteQuery<FrontPageResponse>({
     queryKey: ['frontPage'],
     queryFn: fetchFrontPage,
+    getNextPageParam: (lastPage) => lastPage.data.after || undefined,
+    initialPageParam: '',
   });
 };
 
-const fetchFrontPage: QueryFunction<FrontPageResponse> = async () => {
+const fetchFrontPage = async ({ pageParam = '' }: QueryFunctionContext) => {
   const { data } = await axios.get<FrontPageResponse>(
-    'https://oauth.reddit.com/.json'
+    `https://oauth.reddit.com/.json?after=${pageParam}`
   );
   console.log(data);
   return data;

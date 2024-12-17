@@ -11,7 +11,6 @@ const PostCardActions = ({ post }: { post: Post }) => {
         <Text>{post.score}</Text>
         <Ionicons name='arrow-down' size={20} color='black' />
       </View>
-
       <Text style={styles.comments}>{post.num_comments} comments</Text>
       <Text style={styles.share}>{''}</Text>
     </View>

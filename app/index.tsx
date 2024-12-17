@@ -7,6 +7,8 @@ import {
   RefreshControl,
   Platform,
   AppStateStatus,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
 } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { PostCard } from '@/components/PostCard';
@@ -36,9 +38,17 @@ export default function Home() {
 
   /* Refs */
   const appState = useRef(AppState.currentState);
+  const loadMoreRef = useRef(null);
 
   /* API Hooks */
-  const { data, isLoading, refetch } = useFetchFrontPage();
+  const {
+    data,
+    isLoading,
+    refetch,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useFetchFrontPage();
 
   /* Effects */
 
@@ -52,7 +62,8 @@ export default function Home() {
   // Preload Thumbnails
   useEffect(() => {
     if (data) {
-      const urls = data.data.children
+      const urls = data.pages
+        .flatMap((page) => page.data.children)
         .map((post) => post.data.thumbnail)
         .filter((url) => url && url.startsWith('http'));
 
@@ -73,6 +84,15 @@ export default function Home() {
     }
   }
 
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
+    const isCloseToBottom =
+      layoutMeasurement.height + contentOffset.y >= contentSize.height - 500;
+    if (isCloseToBottom && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
+
   /* Render */
   return (
     <View style={styles.container}>
@@ -80,13 +100,18 @@ export default function Home() {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
+        onScroll={handleScroll}
+        scrollEventThrottle={0}
       >
         {isLoading ? (
           <Text style={styles.loading}>Loading...</Text>
         ) : (
-          data?.data.children.map((post) => (
-            <PostCard post={post.data} key={post.data.id} />
-          ))
+          data?.pages
+            .flatMap((page) => page.data.children)
+            .map((post) => <PostCard post={post.data} key={post.data.id} />)
+        )}
+        {isFetchingNextPage && (
+          <Text style={styles.loading}>Loading more...</Text>
         )}
       </ScrollView>
     </View>
