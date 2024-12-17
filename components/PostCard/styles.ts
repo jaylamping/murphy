@@ -2,21 +2,41 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    maxWidth: '100%',
+    width: '100%',
     paddingHorizontal: 8,
     paddingVertical: 8,
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
+    gap: 14,
   },
-  thumbnail: {
-    width: 85,
-    height: 85,
-    borderRadius: 6,
+  text: {
+    flexDirection: 'column',
+    width: '100%',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
   },
   content: {
-    flexGrow: 1,
-    flexShrink: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  textContent: {
+    flex: 1,
+  },
+  actions: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+
+  thumbnail: {
+    width: 80,
+    height: 80,
+    borderRadius: 6,
+    alignSelf: 'flex-end',
   },
   subreddit: {
     fontSize: 13,
