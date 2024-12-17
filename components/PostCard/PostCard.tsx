@@ -23,7 +23,7 @@ const PostCard = ({ post }: { post: Post }) => {
             <FastImage
               style={styles.thumbnail}
               source={{
-                uri: post.thumbnail,
+                uri: post.thumbnail.replace(/&amp;/g, '&'),
                 priority: FastImage.priority.normal,
                 cache: FastImage.cacheControl.immutable,
               }}

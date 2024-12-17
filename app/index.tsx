@@ -54,9 +54,8 @@ export default function Home() {
 
   // Refetch on App State Change
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', onAppStateChange);
-
-    return () => subscription.remove();
+    // const subscription = AppState.addEventListener('change', onAppStateChange);
+    // return () => subscription.remove();
   }, []);
 
   // Preload Thumbnails
@@ -64,7 +63,7 @@ export default function Home() {
     if (data) {
       const urls = data.pages
         .flatMap((page) => page.data.children)
-        .map((post) => post.data.thumbnail)
+        .map((post) => post.data.thumbnail.replace(/&amp;/g, '&'))
         .filter((url) => url && url.startsWith('http'));
 
       FastImage.preload(urls.map((uri) => ({ uri })));
@@ -78,11 +77,11 @@ export default function Home() {
     setRefreshing(false);
   };
 
-  function onAppStateChange(status: AppStateStatus) {
-    if (Platform.OS !== 'web') {
-      focusManager.setFocused(status === 'active');
-    }
-  }
+  // function onAppStateChange(status: AppStateStatus) {
+  //   if (Platform.OS !== 'web') {
+  //     focusManager.setFocused(status === 'active');
+  //   }
+  // }
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
